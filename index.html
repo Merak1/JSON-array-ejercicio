@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body style="background-image: url(image/curls.png); ">
+
+	<div class="container-fluid text-center">
+		<div class="jumbotron">
+
+		<div class="row">
+				<div class="col-md-3" ><button class="btn" onclick="mostrarTodo()">Mostrar todos los Estudiantes</button></div>	
+				<div class="col-md-3" ><button class="btn"> calcular la nota promedio</button></div>	
+				<div class="col-md-3" ><button class="btn"> estudiante con la nota mayor</button></div>	
+				<div class="col-md-3" ><button class="btn"> estudiante con la menor nota</button></div>	
+	
+	
+		</div>
+   </div><!--Jumbotron-->
+	<div class="container-fluid text-center">
+		<div class="row ">
+			
+			<p class="col-md-12 jumbotron" id="mostrar_objetos"></p>
+			
+		
+			</div>
+		</div>
+	
+		<p class="jumbotron" id="benis"></p>
+  </div><!--final-->
+</body>
+<script type="text/javascript">
+
+		var estudiantes_arreglo ='{"estudiantes":[' + 
+			'{"codigo":"001", "nombre":"Manuel Manolo", "nota": 5},' +
+			'{"codigo":"002", "nombre":"Roberto Robando", "nota": 9},' +
+			'{"codigo":"003", "nombre":"Tito Tenedor", "nota": 9},' +
+			'{"codigo":"004", "nombre":"René Robusto", "nota": 4},' +
+			'{"codigo":"005", "nombre":"Andrés Arraigo", "nota": 7},' +
+			'{"codigo":"006", "nombre":"Francisco Felini", "nota": 6},' +
+			'{"codigo":"007", "nombre":"Lourdes Lombardo", "nota": 4},' +
+			'{"codigo":"008", "nombre":"Juana Jeréz", "nota": 10},' +
+			'{"codigo":"009", "nombre":"Monica Mondragón", "nota": 8},' +
+			'{"codigo":"010", "nombre":"Vania Vermellón", "nota": 5}' +
+			']}';
+			
+		var lista = JSON.parse(estudiantes_arreglo);
+		var out ="Todos los Estudiantes<br>";
+		
+	function leer_lista_Btn1(json){
+
+			var i;
+
+			for(i=0;i<json.estudiantes.length;i++){
+
+				out +=  "Codigo: "+json.estudiantes[i].codigo+" - "+"Nombre: "+json.estudiantes[i].nombre+" - "+"Nota : "+json.estudiantes[i].nota+"<br>";	
+			}	
+		}
+
+leer_lista_Btn1(lista);
+
+var auto ="Benis";/*Puse el benis, pero tendría que estar " " sin nada solo para ver si se imprimia bien el en id*/
+function leer_soloNotas(json){
+
+			var i;
+
+			for(i=0;i<json.estudiantes.length;i++){
+
+				auto += json.estudiantes[i].nota+"<br>";
+			 return auto;
+			}	
+		}
+
+document.getElementById("benis").innerHTML = auto;
+
+leer_soloNotas(lista);
+
+
+ /*Lo del segundo botón*/
+
+	function mostrarTodo(json){
+		document.getElementById("mostrar_objetos").innerHTML = out;	
+		}
+	function suma (total, num){
+		return total + num;
+	}
+	function promedio(json){
+}		
+	var array =[1,2,5,4,1,5,4,8,5,5,4];   /*Aquí pondría los datos de .nota del JSON*/
+
+	var length = array.length;
+
+
+		var resultadoSuma =  array.reduce(suma);
+		var resultadoDivision= resultadoSuma/array.length;
+
+
+	/*document.getElementById("benis").innerHTML = resultadoDivision; aquí debería de de imprimier el resultado para sacar el promedio de los números de nota, del JSON*/
+
+</script>
+</html>
