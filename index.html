@@ -2,37 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <title>La espada de damocles</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body style="background-image: url(image/curls.png); ">
-
-    <div class="container-fluid text-center">
-        <div class="jumbotron">
-
-        <div class="row">
-                <div class="col-md-3" ><button class="btn" onclick="mostrarTodo()">Mostrar todos los Estudiantes</button></div> 
-                <div class="col-md-3" ><button class="btn" onclick="mostar_Promedio()"> calcular la nota promedio</button></div>    
-                <div class="col-md-3" ><button class="btn" onclick="mostar_Mayor()"> estudiante con la nota mayor</button></div> 
-                <div class="col-md-3" ><button class="btn" onclick="mostar_Menor()"> estudiante con la menor nota</button></div> 
-    
-    
+<body style="background-image: url(image/hip.png);">
+<div class="container">
+  <h2>Todos los estudiantes</h2>
+  <a href="#todos" class="btn btn-info" data-toggle="collapse">mostar</a>
+  <div id="todos" class="collapse">
+     <p id="mostrar_objetos"></p>
+  </div>
+</div>
+<div class="container">
+  <h2>El promedio total de todos los estudiantes</h2>
+  <a onclick="mostar_Promedio()" href="#promedio" class="btn btn-info" data-toggle="collapse">mostar</a>
+  <div id="promedio" class="collapse">
+     <p id="mostar_promedio"></p>
+  </div>
+</div>
+<div class="container">
+  <h2>La calificación más alta</h2>
+  <a onclick="mostar_Mayor()" href="#mayor" class="btn btn-info" data-toggle="collapse">mostar</a>
+  <div id="mayor" class="collapse">
+     <p id="mostar_Mayor"></p>
+  </div>
+</div>
+<div class="container">
+  <h2>La calificación más baja</h2>
+    <a onclick="mostar_Menor()" href="#menor" class="btn btn-info" data-toggle="collapse">mostar</a>
+        <div id="menor" class="collapse">
+            <p id="mostar_Menor"></p>
         </div>
-   </div><!--Jumbotron-->
-    <div class="container-fluid text-center">
-        <div class="row ">
-            <p class="col-md-12 jumbotron" id="mostrar_objetos"></p>
-            </div>
-        <div class="row jumbotron">    
-        <p class="col-md-4 " id="mostar_promedio"></p>
-        <p class="col-md-4 " id="mostar_Mayor"></p>
-        <p class="col-md-4 " id="mostar_Menor"></p>
-        </div>
+    </div>
   </div><!--final-->
 </body>
 <script type="text/javascript">
-        var estudiantes_arreglo ='{"estudiantes":[' + 
+    var estudiantes_arreglo ='{"estudiantes":[' + 
             '{"codigo":"001", "nombre":"Manuel Manolo", "nota": 5},' +
             '{"codigo":"002", "nombre":"Roberto Robando", "nota": 9},' +
             '{"codigo":"003", "nombre":"Tito Tenedor", "nota": 9},' +
@@ -44,70 +51,53 @@
             '{"codigo":"009", "nombre":"Monica Mondragón", "nota": 8},' +
             '{"codigo":"010", "nombre":"Vania Vermellón", "nota": 5}' +
             ']}';
-            
-    var lista = JSON.parse(estudiantes_arreglo);
-        var out ="Todos los Estudiantes<br>";
+            var lista = JSON.parse(estudiantes_arreglo);
+            var out ="Todos los Estudiantes<br>";
     function leer_lista_Btn1(json){
             var i;
             for(i=0;i<json.estudiantes.length;i++){
-
                 out +=  "Codigo: "+json.estudiantes[i].codigo+" - "+"Nombre: "+json.estudiantes[i].nombre+" - "+"Nota : "+json.estudiantes[i].nota+"<br>";  
-            }   
+            }              
+             document.getElementById("mostrar_objetos").innerHTML = out; 
         }
-        function mostrarTodo(json){
-                document.getElementById("mostrar_objetos").innerHTML = out; 
+    function mostar_Promedio(json){
+            var json = lista;
+            var varNota = "";
+            var i;
+            varNota = 0;
+            
+            for (i=0; i<json.estudiantes.length;i++) {
+              varNota += json.estudiantes[i].nota;
+            }
+            varNota = varNota / json.estudiantes.length;
+                document.getElementById("mostar_promedio").innerHTML = "El promedio de todos los estudiantes es de : "+ varNota;
+        }   
+    function mostar_Mayor(){
+            var json = lista;
+            var varNota ="";
+            var varNombre="";
+            var i ;
+            varNota = 0;
+            for(i=0;i<json.estudiantes.length;i++){
+                if (varNota <= json.estudiantes[i].nota){ 
+                    varNota = json.estudiantes[i].nota;
+                    varNombre = json.estudiantes[i].nombre;}
                 }
-
-
-
-function mostar_Promedio(){
-  var json = lista;
-  var varNota = "";
-  var i;
-  varNota = 0;
-
-  for (i=0; i<json.estudiantes.length;i++) {
-    varNota += json.estudiantes[i].nota;
-  }
-  varNota = varNota / json.estudiantes.length;
-document.getElementById("mostar_promedio").innerHTML = "El promedio de todos los estudiantes es de : "+ varNota;
-}
-
-leer_lista_Btn1(lista);
-
-function mostar_Mayor(){
-
-    var json = lista;
-    var varNota ="";
-    var varNombre="";
-    var i ;
-    varNota = 0;
-
-    
-    for(i=0;i<json.estudiantes.length;i++){
-        if (varNota <= json.estudiantes[i].nota){ 
-            varNota = json.estudiantes[i].nota;
-            varNombre = json.estudiantes[i].nombre;}
-        }
-    
-    document.getElementById("mostar_Mayor").innerHTML = "La nota mayor es de: " +    varNota+ "y le pertenece a "+ varNombre;
-    }
-
-function mostar_Menor(){
-
-    var json = lista;
-    var varNota ="";
-    var varNombre="";
-    var i ;
-      varNota = 100;
-
-    for(i=0;i<json.estudiantes.length;i++){
-        if (varNota >= json.estudiantes[i].nota){ 
-            varNota = json.estudiantes[i].nota;
-            varNombre = json.estudiantes[i].nombre;}
-        }
-    
-    document.getElementById("mostar_Menor").innerHTML = "La nota menor es de: " +    varNota+ "y le pertenece a "+ varNombre;
-    }
+            document.getElementById("mostar_Mayor").innerHTML = "La nota mayor es de: " + varNota + " y le pertenece a "+ varNombre;
+            }
+    function mostar_Menor(){
+            var json = lista;
+            var varNota ="";
+            var varNombre="";
+            var i ;
+            varNota = 100;
+            for(i=0;i<json.estudiantes.length;i++){
+                if (varNota >= json.estudiantes[i].nota){ 
+                    varNota = json.estudiantes[i].nota;
+                    varNombre = json.estudiantes[i].nombre;}
+                }    
+            document.getElementById("mostar_Menor").innerHTML = "La nota menor es de: " + varNota + " y le pertenece a "+ varNombre;
+            }
+    leer_lista_Btn1(lista);
 </script>
 </html>
